@@ -63,16 +63,16 @@ out_dir = 'out'
 # 输出目录：保存 checkpoint（ckpt.pt）和日志，默认 'out'。
 # - GTX 1050 建议：设为 'out-shakespeare-1050'，避免覆盖。
 
-eval_interval = 2000
+eval_interval = 100
 # 评估间隔：每 2000 步在 train/val 上评估 loss。
 # - GTX 1050 建议：设为 100（小模型，快速验证）。
 
-log_interval = 1
+log_interval = 10
 # 日志间隔：每 1 步打印 loss 和时间。
 # - GTX 1050 建议：设为 10，减少 I/O 开销。
 
-eval_iters = 200
-# 评估时迭代次数：每次评估计算 200 个 batch 的平均 loss。
+eval_iters = 10
+# 评估时迭代次数：每次评估计算 x 个 batch 的平均 loss。
 # - GTX 1050 建议：设为 10，减少计算量（4GB VRAM 限制）。
 
 eval_only = False # if True, script exits right after the first eval
@@ -105,7 +105,7 @@ dataset = 'openwebtext'
 # 数据集名称：默认 OpenWebText（大，几十 GB）。
 # - GTX 1050 必须改：设为 'shakespeare_char'（1MB，参考 README quick start）。
 
-gradient_accumulation_steps = 5 * 8 # used to simulate larger batch sizes
+gradient_accumulation_steps = 4 # used to simulate larger batch sizes
 # 梯度累积步数：模拟大 batch size（5*8=40，针对 8 GPU）。
 # - GTX 1050 建议：设为 1-4（单 GPU，4GB VRAM 限制）。
 
@@ -113,14 +113,14 @@ batch_size = 12 # if gradient_accumulation_steps > 1, this is the micro-batch si
 # 微批次大小：每个 GPU 的 batch size（DDP 下）。
 # - GTX 1050 建议：设为 2-4（避免 OOM，参考 README CPU 示例）。
 
-block_size = 1024
+block_size = 128
 # 上下文长度：每个样本的最大 token 数（GPT-2 默认 1024）。
 # - GTX 1050 建议：设为 64-128（4GB VRAM 限制）。
 
 # model
-n_layer = 12
-n_head = 12
-n_embd = 768
+n_layer = 4
+n_head = 2
+n_embd = 128
 # 模型参数：12 层，12 注意力头，768 嵌入维度（GPT-2 124M 配置）。
 # - GTX 1050 建议：n_layer=4，n_head=4，n_embd=128（约 10M 参数，参考 README quick start）。
 
