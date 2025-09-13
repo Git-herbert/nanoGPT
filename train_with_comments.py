@@ -162,7 +162,7 @@ min_lr = 6e-5 # minimum learning rate, should be ~= learning_rate/10 per Chinchi
 # DDP settings
 backend = 'nccl' # 'nccl', 'gloo', etc.
 # 分布式训练后端：nccl 适合 GPU。
-# - GTX 1050：单卡运行，无需 DDP，忽略此项。
+# - GTX 1050：单卡运行，无需 DDP， 忽略此项。
 
 # system
 device = 'cuda' # examples: 'cpu', 'cuda', 'cuda:0', 'cuda:1' etc., or try 'mps' on macbooks
